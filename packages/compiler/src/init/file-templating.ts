@@ -67,6 +67,26 @@ export type FileTemplatingContext = Omit<InitTemplate, "libraries"> &
      * Splits text apart and rejoins specified segments using a new delimiter.
      */
     rejoin: () =>  (text: string, render: any) => string;
+
+
+    /*
+      Variations that take no additional parameters, other than the input text
+    */
+
+    /**
+     * Splits a package string by '.' and returns only the final segment
+     */
+    lastSegment: () => (text: string, render: any) => string;
+
+    /**
+     * Splits a package string by '.' and returns only the middle segments (no leading or tail segment), joined by '.'.
+     */
+    middleSegments: () => (text: string, render: any) => string;
+
+    /**
+     * Takes the input text and replaces any '.' with '/'.
+     */
+    normalizeToPath: () => (text: string, render: any) => string;
   };
 
 export interface CasingUtils {
