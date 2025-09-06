@@ -107,6 +107,9 @@ export function createFileTemplatingContext(config: ScaffoldingConfig): FileTemp
     slice,
     replace,
     rejoin,
+    lastSegment,
+    middleSegments,
+    normalizeToPath,
     casing,
   };
 }
@@ -142,6 +145,10 @@ const normalizePackageName = function () {
     return render(text).replaceAll(".", "-").toLowerCase();
   };
 };
+
+// 
+// 2. Lower level func, takes args
+//
 
 const slice = function () {
   return function (text: string, render: any): string {
@@ -193,6 +200,10 @@ const replace = function () {
   };
 };
 
+// 
+// 2. Higher level func, takes args
+//
+
 const rejoin = function () {
   return function (text: string, render: any): string {
     // we're assuming that the args are space separated and that the behavior, for indices, is
@@ -224,4 +235,27 @@ const rejoin = function () {
       .slice(parseInt(start, 10), endIdx)
       .join(newDelimiter);
   };
+}
+
+// 
+// 3. Argument-less primitives
+//
+
+const lastSegment = function () {
+  return function (text: string, render: any): string {
+    text = render(text);
+    return text.substring(text.lastIndexOf('.') + 1);
+  }
+}
+
+const middleSegments = function () {
+  return function (text: string, render: any): string {
+    return render(text).split('.').slice(1, -1).join('.');
+  }
+}
+
+const normalizeToPath = function () {
+  return function (text: string, render: any): string {
+    return render(text).replaceAll(".", "/");
+  }
 }
