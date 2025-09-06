@@ -32,6 +32,11 @@ export type FileTemplatingContext = Omit<InitTemplate, "libraries"> &
      * 
      *  package-dir: "az{{#lastSegment}}{{#toLowerCase}}{{parameters.ServiceNamespace}}{{/toLowerCase}}{{/lastSegment}}"
     service-dir: "sdk/{{#normalizeToPath}}{{#middleSegments}}{{#toLowerCase}}{{parameters.ServiceNamespace}}{{/toLowerCase}}{{/middleSegments}}{{/normalizeToPath}}"
+
+       Which would give me this (assuming parameters.Namespace was Azure.Messaging.EventGrid.SystemEvents):
+
+        package-dir: "azsystemevents"
+        service-dir: "sdk/messaging/eventgrid"
      * 
      */
 
